@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "270855756479",
+    "project_id": "easacc-task-248f2",
+    "storage_bucket": "easacc-task-248f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270855756479:android:1839f6abe8e4043c07040a",
+        "android_client_info": {
+          "package_name": "com.hani.easacc_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270855756479-pu2leaeeq186on10fk4tfd9pe9driicj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hani.easacc_task",
+            "certificate_hash": "16c96c00301ddac2a0b3427c821420de107aabd2"
+          }
+        },
+        {
+          "client_id": "270855756479-4gv26nalbbb3e71pjbq5rnleo7d0cap8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATXOhtw67qtiO5JXSvrfLn_zS0lnO0c8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270855756479-4gv26nalbbb3e71pjbq5rnleo7d0cap8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "270855756479-ujcfpenrlghui18soal20vk31n9f67ah.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hani.easaccTask"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
