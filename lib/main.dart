@@ -6,56 +6,42 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-      ChangeNotifierProvider(
-      create: (context) => WebBrowserProvider(),
-      child: MyApp()));
+  runApp(ChangeNotifierProvider(
+      create: (context) => WebBrowserProvider(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        // Initialize FlutterFire
-        future: Firebase.initializeApp(),
-    builder: (context, snapshot) {
-    // Check for errors
-    if (snapshot.hasError) {
-    return CircularProgressIndicator();
-    }
-
-    // Once complete, show your application
-    if (snapshot.connectionState == ConnectionState.done) {
-    return  buildMaterialApp();
-    }
-
-    // Otherwise, show something whilst waiting for initialization to complete
-    return CircularProgressIndicator();
-    },
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return CircularProgressIndicator();
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return buildMaterialApp();
+        }
+        return CircularProgressIndicator();
+      },
     );
-
-
   }
 
   MaterialApp buildMaterialApp() {
     return MaterialApp(
-    title: 'Easacc Task',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-    ),
-    home: LoginScreen(),
-    routes: {
-      "/login":(context) => LoginScreen(),
-      "/settings":(context) => SettingsScreen(),
-      "/web_browser":(context) => WebBrowserScreen(),
-
-
-    },
-  );
+      title: 'Easacc Task',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: LoginScreen(),
+      routes: {
+        "/login": (context) => LoginScreen(),
+        "/settings": (context) => SettingsScreen(),
+        "/web_browser": (context) => WebBrowserScreen(),
+      },
+    );
   }
 }
