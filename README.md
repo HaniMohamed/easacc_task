@@ -2,6 +2,15 @@
 
 Simple webView app with social network login.
 
+# Screenshots:
+![Login Screen](https://github.com/HaniMohamed/easacc_task/blob/main/screenshots/Screen_Shot01.png)
+![WebBrowser Screen](https://github.com/HaniMohamed/easacc_task/blob/main/screenshots/Screen_Shot02.png)
+![Settings Screen](https://github.com/HaniMohamed/easacc_task/blob/main/screenshots/Screen_Shot03.png)
+![](https://github.com/HaniMohamed/easacc_task/blob/main/screenshots/Screen_Shot04.png)
+![](https://github.com/HaniMohamed/easacc_task/blob/main/screenshots/Screen_Shot05.png)
+
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
