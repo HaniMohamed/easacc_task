@@ -1,13 +1,15 @@
 import 'package:easacc_task/provider/web_browser_provider.dart';
 import 'package:easacc_task/services/social_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:preferences/preference_page.dart';
 import 'package:preferences/preference_title.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:preferences/preferences.dart';
-import 'package:preferences/text_field_preference.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ping_discover_network/ping_discover_network.dart';
+import 'package:wifi/wifi.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -16,11 +18,18 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final urlTextController = TextEditingController();
+  FlutterBlue flutterBlue = FlutterBlue.instance;
+
+  List<String> _bluDevices = [];
+
+  List<String> _wifiDevices = [];
 
   @override
   void initState() {
     super.initState();
     urlTextController.text = WebBrowserProvider().url;
+    _startBluScan();
+    _startWifiScan();
   }
 
   @override
@@ -50,6 +59,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             );
           }),
         ),
+        PreferenceTitle('Near Devices'),
+        Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text("Bluetooth devices: "),
+                    DropdownButton(
+                        items:
+                            new List.generate(_bluDevices.length, (int index) {
+                          return new DropdownMenuItem(
+                              child: new Container(
+                            child: new Text("${_bluDevices[index]}"),
+                            width: 200.0, //200.0 to 100.0
+                          ));
+                        }),
+                        onChanged: null),
+                  ],
+                )
+              ],
+            )),
         PreferenceTitle('User Data'),
         Padding(
           padding: EdgeInsets.only(left: 20, right: 10),
@@ -107,6 +138,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
         )
       ]),
     );
+  }
+
+  _startBluScan() {
+    setState(() {
+      _bluDevices = [];
+    });
+    flutterBlue.scanResults.listen((results) {
+      for (ScanResult r in results) {
+        setState(() {
+          _bluDevices.add(r.device.name + " => " + r.rssi.toString());
+          print('${r.device.name} found! rssi: ${r.rssi}');
+        });
+      }
+    });
+    flutterBlue.startScan(timeout: Duration(seconds: 4));
+  }
+
+  _startWifiScan() async {
+    final String ip = await Wifi.ip;
+    final String subnet = ip.substring(0, ip.lastIndexOf('.'));
+    final int port = 80;
+    setState(() {
+      _wifiDevices = [];
+    });
+
+    final stream = NetworkAnalyzer.discover(subnet, port);
+    stream.listen((NetworkAddress addr) {
+      if (addr.exists) {
+        setState(() {
+          _wifiDevices.add(addr.ip);
+          print('Found device: ${addr.ip}');
+        });
+      }
+    });
   }
 
   Widget urlTextField() {
