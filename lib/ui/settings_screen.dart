@@ -115,11 +115,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  void onUrlChanged(val) {
-    print("$val");
-    WebBrowserProvider().setUrl(val);
-  }
-
   void _launchURL(url) async {
     await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
   }
